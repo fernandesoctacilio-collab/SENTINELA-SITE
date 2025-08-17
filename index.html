@@ -62,12 +62,14 @@
   <h2>Últimas Notícias</h2>
   <div id="newsGrid" class="grid grid-3 skeleton-grid">
   <div class="skeleton-card"></div>
+  <button class="car-btn next" aria-label="Próximo" data-for="newsGrid">›</button>
+</div>
   <div class="skeleton-card"></div>
   <div class="skeleton-card"></div>
 </div>
 </section>
 
-  <section class="section">
+  <section<section class="section">
     <h2>Sentinela Explica</h2>
     <div class="grid grid-3">
       <a class="card reveal delay-1" href="pages/noticias.html">
@@ -118,17 +120,25 @@
   <script src="assets/js/main.js"></script>
 <button id="backToTop" aria-label="Voltar ao topo"><i class="fa-solid fa-arrow-up"></i></button>
 
+
 <script>
   window.SENTINELA_FEEDS = {
-    // tentativa principal (RSS G1 regional via rss2json)
-    rss2json: "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent("https://g1.globo.com/dynamo/sp/vale-do-paraiba-regiao/rss2.xml"),
-    // fallback: página regional (apenas links)
+    sources: {
+      g1_rss2json:
+        "https://api.rss2json.com/v1/api.json?rss_url=" +
+        encodeURIComponent("https://g1.globo.com/dynamo/sp/vale-do-paraiba-regiao/rss2.xml"),
+      g1_xml: "https://r.jina.ai/http://g1.globo.com/dynamo/sp/vale-do-paraiba-regiao/rss2.xml",
+      ovale_html: "https://r.jina.ai/https://www.ovale.com.br/",
+      vale360_html: "https://r.jina.ai/https://www.vale360.com.br/"
+    },
     fallbackLinks: [
       { title: "G1 Vale do Paraíba e região — Página regional", url: "https://g1.globo.com/sp/vale-do-paraiba-regiao/" },
-      { title: "Rede Vanguarda (X)", url: "https://x.com/g1vanguarda" }
+      { title: "O Vale — Portal", url: "https://www.ovale.com.br/" },
+      { title: "Vale360 — Portal", url: "https://www.vale360.com.br/" }
     ]
   };
 </script>
+
 
 <script>
 if("serviceWorker" in navigator){navigator.serviceWorker.register("service-worker.js").catch(()=>{});} 

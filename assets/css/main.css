@@ -249,3 +249,27 @@ body{letter-spacing:0.1px}
 .reveal.stg-3{transition-delay:.18s}
 .reveal.stg-4{transition-delay:.24s}
 .reveal.stg-5{transition-delay:.30s}
+
+/* ===== Carousel styles ===== */
+.carousel{position:relative; display:flex; align-items:center; gap:10px}
+.carousel-track{
+  display:grid; grid-auto-flow:column; grid-auto-columns: minmax(260px, 1fr);
+  gap:18px; overflow-x:auto; scroll-snap-type:x mandatory; padding:6px;
+  scrollbar-width: thin;
+}
+.carousel-track:focus{outline:2px solid #a8b7d3; outline-offset:2px}
+.carousel-track > .card{scroll-snap-align:center; min-width:280px}
+.car-btn{
+  background:#0A2342; color:#fff; border:none; width:40px; height:40px; border-radius:12px;
+  display:flex; align-items:center; justify-content:center; box-shadow:var(--shadow);
+  cursor:pointer; transition:transform .15s ease, background .2s ease;
+}
+.car-btn:hover{transform:translateY(-2px); background:#0c2d58}
+.car-btn:active{transform:translateY(0)}
+@media(max-width:880px){
+  .car-btn{position:absolute; top:-48px}
+  .car-btn.prev{right:56px} .car-btn.next{right:10px}
+}
+
+/* Skeleton tweaks inside carousel */
+.skeleton-grid.skeleton-grid{display:grid; grid-template-columns:repeat(3,1fr)}

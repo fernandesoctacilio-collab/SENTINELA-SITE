@@ -1,12 +1,43 @@
 
+// ===== Carousel helpers =====
+function setupCarousel(trackId, interval=4500){
+  const track = document.getElementById(trackId);
+  if(!track) return;
+  const prev = document.querySelector(`.car-btn.prev[data-for="${trackId}"]`);
+  const next = document.querySelector(`.car-btn.next[data-for="${trackId}"]`);
+
+  function cardWidth(){
+    const first = track.querySelector('.card');
+    return first ? first.getBoundingClientRect().width + 18 : 320;
+  }
+  prev?.addEventListener('click', ()=> track.scrollBy({left: -cardWidth(), behavior:'smooth'}));
+  next?.addEventListener('click', ()=> track.scrollBy({left: cardWidth(), behavior:'smooth'}));
+
+  // auto-advance
+  setInterval(()=>{
+    track.scrollBy({left: cardWidth(), behavior:'smooth'});
+    // loop to start when reaching end
+    if(track.scrollLeft + track.clientWidth >= track.scrollWidth - cardWidth()){
+      setTimeout(()=> track.scrollTo({left:0, behavior:'smooth'}), 600);
+    }
+  }, interval);
+}
+
+// Initialize carousels after content
+function initCarousels(){
+  setupCarousel('newsGrid', 4500);
+  setupCarousel('explicaGrid', 5000);
+}
+
+
 // ===== Splash GIF control (ensure present) =====
 (function(){
   const splash = document.getElementById('splash');
   const img = document.getElementById('splashGif');
   if(!splash) return;
   const hide = ()=>{ splash.classList.add('fade-out'); setTimeout(()=> splash.remove(), 800); };
-  if(img){ img.addEventListener('load', ()=> setTimeout(hide, 5200), {once:true}); img.addEventListener('error', ()=> setTimeout(hide, 400), {once:true}); }
-  setTimeout(hide, 7000);
+  if(img){ img.addEventListener('load', ()=> setTimeout(hide, 6000), {once:true}); img.addEventListener('error', ()=> setTimeout(hide, 400), {once:true}); }
+  setTimeout(hide, 9000);
 })();
 
 // ===== Utility: turn a grid into a rotating deck =====
@@ -70,7 +101,7 @@ async function renderHomepage(){
     }
   }catch(err){ console.warn('Falha ao carregar conteúdo dinâmico', err); }
 }
-renderHomepage().then(initDynamicDecks).catch(initDynamicDecks);
+renderHomepage().then(()=>{initDynamicDecks();initCarousels();}).catch(()=>{initDynamicDecks();initCarousels();});
 
 // ===== Notícias page: list + search =====
 async function renderNewsPage(){
@@ -315,4 +346,198 @@ window.addEventListener('load', ()=>{
       grid.appendChild(a);
     });
   }
+})();
+
+
+// ===== Improved regional news loader: try rss2json, then XML via Jina proxy (CORS-friendly) =====
+(async function(){
+  const grid = document.getElementById('newsGrid');
+  if(!grid || !window.SENTINELA_FEEDS) return;
+  const { rss2json, fallbackLinks } = window.SENTINELA_FEEDS;
+
+  function renderItems(items){
+    grid.innerHTML = '';
+    items.slice(0,6).forEach((item, i)=>{
+      const a = document.createElement('a');
+      a.className = 'card reveal delay-' + ((i%3)+1);
+      a.href = item.link; a.target = '_blank'; a.rel = 'noopener';
+      const img = item.image || ('https://picsum.photos/seed/vanguarda'+i+'/1200/700');
+      a.innerHTML = `<img loading="lazy" data-reveal-img class="cover" src="${img}" alt="${item.title}">
+        <div class="p"><span class="chip">${item.tag||'G1 Vale'}</span>
+        <h3>${item.title}</h3><p>${(item.description||'').slice(0,140)}...</p></div>`;
+      grid.appendChild(a);
+    });
+    initDynamicDecks && initDynamicDecks();
+  }
+
+  // Try rss2json first
+  try{
+    const r = await fetch(rss2json, {cache:'no-store'});
+    if(!r.ok) throw new Error('rss2json HTTP '+r.status);
+    const data = await r.json();
+    const items = (data.items||[]).map(x=>({
+      title: x.title,
+      link: x.link,
+      image: x.thumbnail || (x.enclosure && (x.enclosure.link || x.enclosure.url)),
+      description: (x.description||'').replace(/<[^>]+>/g,'')
+    }));
+    if(items.length){ renderItems(items); return; }
+    throw new Error('rss2json empty');
+  }catch(e){
+    console.warn('rss2json failed -> try Jina proxy XML parse', e);
+  }
+
+  // Fallback: fetch raw RSS XML via Jina proxy (permite CORS)
+  try{
+    const rssUrl = "https://g1.globo.com/dynamo/sp/vale-do-paraiba-regiao/rss2.xml";
+    const proxy = "https://r.jina.ai/http://" + rssUrl.replace(/^https?:\/\//,'');
+    const t = await fetch(proxy, {cache:'no-store'}).then(r=>r.text());
+
+    // Simple XML parsing with regex (suficiente para títulos/links)
+    const items = [];
+    const itemRe = /<item>([\s\S]*?)<\/item>/g;
+    let m;
+    while((m = itemRe.exec(t))){
+      const block = m[1];
+      const get = (tag)=>{
+        const r = new RegExp(`<${tag}>([\\s\\S]*?)<\\/${tag}>`,'i');
+        const mm = r.exec(block); return mm? mm[1].replace(/<!\[CDATA\[|\]\]>/g,'').trim() : '';
+      };
+      const title = get('title');
+      const link = get('link');
+      // try media:thumbnail or enclosure
+      let image = '';
+      const mThumb = block.match(/<media:thumbnail[^>]*url="([^"]+)"/i);
+      if(mThumb) image = mThumb[1];
+      const mEncl = block.match(/<enclosure[^>]*url="([^"]+)"/i);
+      if(!image && mEncl) image = mEncl[1];
+      const desc = get('description').replace(/<[^>]+>/g,'');
+      if(title && link){
+        items.push({title, link, image, description: desc, tag:'G1 Vale'});
+      }
+    }
+    if(items.length){ renderItems(items); return; }
+    throw new Error('proxy parse empty');
+  }catch(e2){
+    console.warn('Jina proxy parse failed -> show fallbacks', e2);
+    grid.innerHTML = '';
+    fallbackLinks.forEach((l, i)=>{
+      const a = document.createElement('a');
+      a.className = 'card reveal delay-' + (i+1);
+      a.href = l.url; a.target = '_blank'; a.rel = 'noopener';
+      a.innerHTML = `<div class="p"><h3>${l.title}</h3><p>Abrir em nova aba</p></div>`;
+      grid.appendChild(a);
+    });
+    initDynamicDecks && initDynamicDecks();
+  }
+})();
+
+
+// ===== Multi-source regional news loader =====
+(async function(){
+  const grid = document.getElementById('newsGrid');
+  if(!grid || !window.SENTINELA_FEEDS) return;
+  const { sources, fallbackLinks } = window.SENTINELA_FEEDS;
+
+  function render(items){
+    grid.innerHTML = '';
+    items.slice(0,8).forEach((item, i)=>{
+      const a = document.createElement('a');
+      a.className = 'card reveal delay-' + ((i%3)+1);
+      a.href = item.link; a.target = '_blank'; a.rel = 'noopener';
+      const img = item.image || 'https://picsum.photos/seed/vale'+i+'/1200/700';
+      a.innerHTML = `<img loading="lazy" data-reveal-img class="cover" src="${img}" alt="${item.title}">
+        <div class="p"><span class="chip">${item.tag||'Regional'}</span><h3>${item.title}</h3><p>${(item.description||'').slice(0,140)}...</p></div>`;
+      grid.appendChild(a);
+    });
+    // after rendering, init decks and carousels
+    initDynamicDecks && initDynamicDecks();
+    initCarousels && initCarousels();
+  }
+
+  // 1) Try rss2json (G1)
+  try{
+    const r = await fetch(sources.g1_rss2json, {cache:'no-store'});
+    if(!r.ok) throw new Error('rss2json HTTP '+r.status);
+    const data = await r.json();
+    const items = (data.items||[]).map(x=>({
+      title: x.title, link: x.link,
+      image: x.thumbnail || (x.enclosure && (x.enclosure.link || x.enclosure.url)),
+      description: (x.description||'').replace(/<[^>]+>/g,''),
+      tag: 'G1 Vale'
+    }));
+    if(items.length){ render(items); return; }
+    throw new Error('rss2json empty');
+  }catch(e){ console.warn('rss2json failed', e); }
+
+  // 2) Try raw G1 RSS via Jina proxy
+  try{
+    const t = await fetch(sources.g1_xml, {cache:'no-store'}).then(r=>r.text());
+    const items = [];
+    const itemRe = /<item>([\s\S]*?)<\/item>/g;
+    let m;
+    while((m = itemRe.exec(t))){
+      const block = m[1];
+      const get = (tag)=>{ const rr = new RegExp(`<${tag}>([\\s\\S]*?)<\\/${tag}>`,'i'); const mm = rr.exec(block); return mm?mm[1].replace(/<!\[CDATA\[|\]\]>/g,'').trim():''; };
+      const title = get('title'); const link = get('link'); let image = '';
+      const mThumb = block.match(/<media:thumbnail[^>]*url="([^"]+)"/i);
+      if(mThumb) image = mThumb[1];
+      const mEncl = block.match(/<enclosure[^>]*url="([^"]+)"/i);
+      if(!image && mEncl) image = mEncl[1];
+      const desc = get('description').replace(/<[^>]+>/g,'');
+      if(title && link) items.push({title, link, image, description:desc, tag:'G1 Vale'});
+    }
+    if(items.length){ render(items); return; }
+    throw new Error('g1 xml empty');
+  }catch(e){ console.warn('g1 xml failed', e); }
+
+  // 3) Try OVALE homepage via proxy: scrape anchors
+  try{
+    const html = await fetch(sources.ovale_html, {cache:'no-store'}).then(r=>r.text());
+    const items = [];
+    const re = /<a[^>]+href="(https?:\/\/[^"]+)"[^>]*>(.*?)<\/a>/gi;
+    let m; const seen = new Set();
+    while((m = re.exec(html))){
+      const link = m[1]; const text = m[2].replace(/<[^>]+>/g,'').trim();
+      if(!/ovale\.com\.br/.test(link)) continue;
+      if(text.length < 28) continue;
+      const key = link + '|' + text;
+      if(seen.has(key)) continue; seen.add(key);
+      items.push({title: text, link, image:'', description:'', tag:'O Vale'});
+      if(items.length>=8) break;
+    }
+    if(items.length){ render(items); return; }
+    throw new Error('ovale empty');
+  }catch(e){ console.warn('ovale parse failed', e); }
+
+  // 4) Try Vale360 homepage via proxy
+  try{
+    const html = await fetch(sources.vale360_html, {cache:'no-store'}).then(r=>r.text());
+    const items = [];
+    const re = /<a[^>]+href="(https?:\/\/[^"]+)"[^>]*>(.*?)<\/a>/gi;
+    let m; const seen = new Set();
+    while((m = re.exec(html))){
+      const link = m[1]; const text = m[2].replace(/<[^>]+>/g,'').trim();
+      if(!/vale360\.com\.br/.test(link)) continue;
+      if(text.length < 28) continue;
+      const key = link + '|' + text;
+      if(seen.has(key)) continue; seen.add(key);
+      items.push({title: text, link, image:'', description:'', tag:'Vale360'});
+      if(items.length>=8) break;
+    }
+    if(items.length){ render(items); return; }
+    throw new Error('vale360 empty');
+  }catch(e){ console.warn('vale360 parse failed', e); }
+
+  // 5) Fallback links
+  grid.innerHTML='';
+  fallbackLinks.forEach((l,i)=>{
+    const a = document.createElement('a');
+    a.className = 'card reveal delay-' + (i+1);
+    a.href = l.url; a.target = '_blank'; a.rel = 'noopener';
+    a.innerHTML = `<div class="p"><h3>${l.title}</h3><p>Abrir em nova aba</p></div>`;
+    grid.appendChild(a);
+  });
+  initDynamicDecks && initDynamicDecks();
+  initCarousels && initCarousels();
 })();
