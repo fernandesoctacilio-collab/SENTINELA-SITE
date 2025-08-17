@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   // header shrink
   const header=document.querySelector('.site-header');
   window.addEventListener('scroll', ()=>{
-    if((window.scrollY||0)>10) header.classList.add('scrolled'); else header.classList.remove('scrolled');
+    if((window.scrollY||0)>10) header && header.classList && header.classList.add('scrolled'); else header && header.classList && header.classList.remove('scrolled');
   }, {passive:true});
   // burger
   const nav=document.querySelector('.nav'), burger=document.querySelector('.burger');
@@ -28,9 +28,7 @@ if(topBtn){
 
 // ===== Splash GIF control =====
 (function(){
-  const splash=document.getElementById('splash');
-  const img=document.getElementById('splashGif');
-  if(!splash) return;
+  const splash=document.getElementById('splash'); const img=document.getElementById('splashGif'); if(!splash) return; if(img && !img.src) { img.src = encodeURI('assets/img/animação.gif'); }
   const hide=()=>{ splash.classList.add('fade-out'); setTimeout(()=> splash.remove(), 800); };
   if(img){ img.addEventListener('load', ()=> setTimeout(hide, 6000), {once:true}); img.addEventListener('error', ()=> setTimeout(hide, 500), {once:true}); }
   setTimeout(hide, 9000);
@@ -42,7 +40,7 @@ function setupCarousel(trackId, interval=4500){
   if(!track) return;
   const prev=document.querySelector(`.car-btn.prev[data-for="${trackId}"]`);
   const next=document.querySelector(`.car-btn.next[data-for="${trackId}"]`);
-  function cardW(){ const first=track.querySelector('.card'); return first ? first.getBoundingClientRect().width + 18 : 320; }
+  function cardW(){ const first=track.querySelector('.card'); try{ return first ? first.getBoundingClientRect().width + 18 : 320; }catch(e){ return 320; } }
   prev?.addEventListener('click', ()=> track.scrollBy({left:-cardW(),behavior:'smooth'}));
   next?.addEventListener('click', ()=> track.scrollBy({left: cardW(),behavior:'smooth'}));
   setInterval(()=>{
