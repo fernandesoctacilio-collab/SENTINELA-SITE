@@ -1,3 +1,17 @@
+// ===== Splash com GIF local =====
+(function(){
+  const splash = document.getElementById('splash');
+  const img = document.getElementById('splashGif');
+  if(!splash) return;
+  const hide = ()=>{ splash.classList.add('fade-out'); setTimeout(()=> splash.remove(), 800); };
+  if(img){
+    // se carregar, espera 5200ms para dar tempo de exibir
+    img.addEventListener('load', ()=> setTimeout(hide, 5200), {once:true});
+    img.addEventListener('error', ()=> setTimeout(hide, 400), {once:true});
+  }
+  // segurança: se nada acontecer, some em 7s
+  setTimeout(hide, 7000);
+})();
 
 // ===== Load & render dynamic content from JSON =====
 async function fetchJSON(path){ const r = await fetch(path); return r.json(); }
@@ -150,32 +164,7 @@ renderExplicaPage();
   }, {passive:true});
 })();
 
-// ===== Splash with local MP4 (from repo path) =====
-(function(){
-  const splash = document.getElementById('splash');
-  if(!splash) return;
-  const v = document.getElementById('splashVideo');
-  const safeHide = (ms=300)=>{
-    setTimeout(()=>{
-      splash.classList.add('fade-out');
-      setTimeout(()=> splash.remove(), 900);
-    }, ms);
-  };
-  if(v){
-    // play, then hide when ended; hard timeout fallback
-    v.addEventListener('ended', ()=> safeHide(50));
-    v.addEventListener('error', ()=> safeHide(100));
-    // some browsers block autoplay; try play()
-    const tryPlay = v.play && v.play();
-    if(tryPlay && typeof tryPlay.catch === 'function'){
-      tryPlay.catch(()=> safeHide(800)); // if blocked, hide quickly
-    }
-    // safety timeout
-    setTimeout(()=> safeHide(800), 8000);
-  }else{
-    safeHide(200);
-  }
-})();
+// (removido bloco MP4)
 
 
 
