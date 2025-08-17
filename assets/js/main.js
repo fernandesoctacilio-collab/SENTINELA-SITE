@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   const topBtn=document.getElementById('backToTop');
 if(topBtn){
   window.addEventListener('scroll', ()=>{ if((window.scrollY||0)>400) topBtn.classList.add('show'); else topBtn.classList.remove('show'); }, {passive:true});
-  addEventListener('click', ()=> window.scrollTo({top:0,behavior:'smooth'}));
+  if(topBtn){ topBtn.addEventListener('click', ()=> window.scrollTo({top:0,behavior:'smooth'})); }
 });
 
 // ===== Splash GIF control =====
@@ -94,7 +94,19 @@ renderHomepage().then(()=>{ initCarousels(); }).catch(()=>{ initCarousels(); });
       grid.appendChild(a);
     });
   }
-  // 1) rss2json (G1)
+  // 0) Google News via Jina (XML)
+  try{
+    const t=await fetch(sources.google_news,{cache:'no-store'}).then(r=>r.text());
+    const items=[]; const re=/<item>([\s\S]*?)<\/item>/g; let m;
+    while((m=re.exec(t))){ const b=m[1];
+      const get=tag=>{const rr=new RegExp(`<${tag}>([\\s\\S]*?)<\/${tag}>`,'i'); const mm=rr.exec(b); return mm?mm[1].replace(/<!\[CDATA\[|\]\]>/g,'').trim():''};
+      const title=get('title'), link=get('link'); const desc=get('description').replace(/<[^>]+>/g,'');
+      if(title&&link) items.push({title,link,image:'',description:desc,tag:'Google News'});
+    }
+    if(items.length){ render(items); return; } throw new Error('empty google');
+  }catch(e){ console.warn('GoogleNews falhou', e); }
+
+// 1) rss2json (G1)
   try{
     const r=await fetch(sources.g1_rss2json,{cache:'no-store'}); if(!r.ok) throw new Error('rss2json '+r.status);
     const d=await r.json(); const items=(d.items||[]).map(x=>({title:x.title,link:x.link,image:x.thumbnail||(x.enclosure&&(x.enclosure.link||x.enclosure.url)),description:(x.description||'').replace(/<[^>]+>/g,''),tag:'G1 Vale'}));
