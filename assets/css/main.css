@@ -103,3 +103,29 @@ h2{font-family:Inter,system-ui,sans-serif;color:var(--azul-escuro);margin:0 0 10
 
 /* Splash small improvement */
 #splash { background: #000; }
+
+
+/* --- Splash using IMG fallback (GIF remote) --- */
+#splash img {position:absolute; inset:0; width:100%; height:100%; object-fit:cover}
+
+/* --- Mobile-first improvements --- */
+@media(max-width: 860px){
+  .nav{padding:12px 14px}
+  .links{display:none; position:fixed; inset:56px 0 0 0; background:rgba(10,35,66,.98); padding:20px; flex-direction:column; gap:12px}
+  .links a{display:block; font-size:18px; padding:12px 14px; border-radius:12px}
+  .nav.open .links{display:flex}
+  .btn{display:none} /* esconder CTA no topo; pode ir dentro do menu mobile depois */
+  .burger{display:inline-flex; margin-left:auto; width:36px; height:36px; align-items:center; justify-content:center; border:1px solid rgba(255,255,255,.25); border-radius:10px; color:#fff; background:transparent}
+  .logo{font-size:16px}
+  .banner{height:380px}
+  .card .cover{height:160px}
+}
+
+/* tiny screens */
+@media(max-width: 420px){
+  .banner{height:320px}
+  h2{font-size:1.15rem}
+  .lead{font-size:0.95rem}
+  .card .p{padding:12px}
+  .icon-card img{width:64px; height:64px}
+}

@@ -1,4 +1,35 @@
 
+// Robust splash loader for remote GIF
+(function(){
+  const splash = document.getElementById('splash');
+  const gifEl = splash ? splash.querySelector('img') : null;
+  let hidden = false;
+  function hideSplash(delay=300){
+    if(hidden) return;
+    hidden = true;
+    setTimeout(()=>{ splash && splash.classList.add('fade-out'); setTimeout(()=>splash && splash.remove(), 900); }, delay);
+  }
+  if(gifEl){
+    // if loads, keep for ~4.8s
+    gifEl.addEventListener('load', ()=> hideSplash(4800));
+    gifEl.addEventListener('error', ()=> hideSplash(100)); // fail fast
+  } else {
+    hideSplash(200);
+  }
+  // safety timeout (7s)
+  setTimeout(()=> hideSplash(200), 7000);
+})();
+
+// Mobile burger toggle
+(function(){
+  const nav = document.querySelector('.nav');
+  const burger = document.querySelector('.burger');
+  if(burger && nav){
+    burger.addEventListener('click', ()=> nav.classList.toggle('open'));
+  }
+})();
+
+
 // Splash based on animated GIF with timeout
 document.addEventListener('DOMContentLoaded', ()=>{
   const splash = document.getElementById('splash');
