@@ -2,6 +2,9 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;800&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Sentinela Nativense</title>
@@ -11,8 +14,10 @@
 <body>
   <!-- Splash Screen: YouTube Shorts EMBED -->
   <div id="splash">
-  <img src="https://files.fm/f/4a8vhbpcvr" alt="Abertura Sentinela">
-  <noscript><img src="assets/img/banner.webp" alt=""></noscript>
+  <video id="splashVideo" autoplay muted playsinline preload="auto">
+    <source src="assets/video/animacao.mp4" type="video/mp4">
+  </video>
+  <noscript><img data-reveal-img src="assets/img/banner.webp" alt=""></noscript>
 </div>
 </div>
 
@@ -20,76 +25,66 @@
     <nav class="nav">
       <div class="logo">SENTINELA</div><button class="burger" aria-label="Abrir menu">☰</button>
       <div class="links">
-        <a href="index.html">Início</a>
-        <a href="pages/noticias.html">Notícias</a>
-        <a href="pages/explica.html">Sentinela Explica</a>
-        <a href="pages/ajuda.html">Ajuda Jurídica</a>
-        <a href="pages/sobre.html">Sobre Nós</a>
+        <a href="index.html"><i class="fa-solid fa-house"></i>Início</a>
+        <a href="pages/noticias.html"><i class="fa-regular fa-newspaper"></i>Notícias</a>
+        <a href="pages/explica.html"><i class="fa-solid fa-circle-question"></i>Sentinela Explica</a>
+        <a href="pages/ajuda.html"><i class="fa-solid fa-scale-balanced"></i>Ajuda Jurídica</a>
+        <a href="pages/sobre.html"><i class="fa-solid fa-users"></i>Sobre Nós</a>
       </div>
+      <form class="search" role="search" aria-label="Buscar" onsubmit="return false" style="margin-left:auto;">
+        <input id="q" type="search" placeholder="Buscar..." aria-label="Buscar no site" style="padding:8px 12px;border-radius:10px;border:1px solid #ccd5e1">
+      </form>
       <a class="btn" href="pages/denuncias.html">Enviar Denúncia</a>
     </nav>
   </header>
 
   <section class="banner">
-    <img src="assets/img/demo1.webp" alt="Banner investigativo">
+    <img src="https://picsum.photos/seed/saude/1200/750" alt="Banner investigativo">
     <div class="banner-text">
       <h1>Transparência e Ação Cidadã</h1>
       <p>Jornalismo investigativo com foco em Natividade da Serra</p>
-    </div>
+    </a>
   </section>
 
   <section class="section">
     <h2>Manchete</h2>
     <p class="lead">Destaque investigativo da semana — matéria fictícia para visualização.</p>
-    <div class="card">
-      <img class="cover" src="assets/img/demo2.webp" alt="Capa manchete">
+    <a class="card reveal" href="pages/noticias.html">
+      <img class="cover" src="https://picsum.photos/seed/educacao/1200/700" alt="Capa manchete">
       <div class="p">
         <h3>Relatório aponta falhas em licitações de serviços essenciais</h3>
         <p>Levantamento simulado mostra inconsistências e atrasos. Este bloco exemplifica como as matérias em destaque
         aparecerão no portal.</p>
         <a class="btn-inline" href="pages/noticias.html">Ler reportagem</a>
-      </div>
+      </a>
     </div>
   </section>
 
   <section class="section">
-    <h2>Últimas Notícias</h2>
-    <div class="grid grid-3">
-      <div class="card">
-        <img class="cover" src="assets/img/demo3.webp" alt="">
-        <div class="p"><h3>Vereadores debatem PL sobre transparência</h3><p>Resumo fictício de uma notícia com CTA.</p><a class="btn-inline" href="pages/noticias.html">Ler</a></div>
-      </div>
-      <div class="card">
-        <img class="cover" src="assets/img/demo1.webp" alt="">
-        <div class="p"><h3>Saúde: indicadores de atendimento</h3><p>Dados simulados para visualização de layout.</p><a class="btn-inline" href="pages/noticias.html">Ler</a></div>
-      </div>
-      <div class="card">
-        <img class="cover" src="assets/img/demo2.webp" alt="">
-        <div class="p"><h3>Educação: transporte escolar na pauta</h3><p>Exemplo de card com imagem, título e link.</p><a class="btn-inline" href="pages/noticias.html">Ler</a></div>
-      </div>
-    </div>
-  </section>
+  <h2>Últimas Notícias</h2>
+  <div id="newsGrid" class="grid grid-3"></div>
+</section>
 
   <section class="section">
     <h2>Sentinela Explica</h2>
     <div class="grid grid-3">
-      <div class="card">
-        <img class="cover" src="assets/img/demo3.webp" alt="">
-        <div class="p"><h3>O que é Impessoalidade?</h3><p>Texto de exemplo explicando princípios administrativos.</p><a class="btn-inline" href="pages/explica.html">Entenda</a></div>
+      <a class="card reveal delay-1" href="pages/noticias.html">
+        <img loading="lazy" data-reveal-img class="cover" src="https://picsum.photos/seed/orcamento/1200/680" alt="">
+        <div class="p"><h3>O que é Impessoalidade?</h3><p>Texto de exemplo explicando princípios administrativos.</p><a class="btn-inline" href="pages/explica.html">Entenda</a></a>
       </div>
-      <div class="card">
-        <img class="cover" src="assets/img/banner.webp" alt="">
+      <a class="card reveal delay-1" href="pages/noticias.html">
+        <img loading="lazy" data-reveal-img class="cover" src="assets/img/banner.webp" alt="">
         <div class="p"><h3>Como funciona a LDO</h3><p>Explicativo fictício com linguagem clara.</p><a class="btn-inline" href="pages/explica.html">Entenda</a></div>
       </div>
-      <div class="card">
-        <img class="cover" src="assets/img/banner.webp" alt="">
+      <a class="card reveal delay-1" href="pages/noticias.html">
+        <img loading="lazy" data-reveal-img class="cover" src="assets/img/banner.webp" alt="">
         <div class="p"><h3>Direito de Acesso à Informação</h3><p>Passo a passo simulado para pedidos de informação.</p><a class="btn-inline" href="pages/explica.html">Entenda</a></div>
       </div>
     </div>
   </section>
 
   <section class="section">
-    <div class="infobox">
+    <div class="infobox reveal">
       <h2>Ajuda ao Cidadão</h2>
       <p>Modelos, orientações e primeiros passos para encaminhar denúncias e solicitações.</p>
       <a class="btn" href="pages/ajuda.html">Acessar Ajuda Jurídica</a>
@@ -99,16 +94,16 @@
   <section class="section">
     <h2>Áreas de Atuação</h2>
     <div class="grid grid-4">
-      <a class="card icon-card" href="pages/saude.html"><img src="assets/icons/saude.webp" alt=""><h3>Saúde</h3></a>
-      <a class="card icon-card" href="pages/educacao.html"><img src="assets/icons/educacao.webp" alt=""><h3>Educação</h3></a>
-      <a class="card icon-card" href="pages/orcamento.html"><img src="assets/icons/orcamento.webp" alt=""><h3>Orçamento</h3></a>
-      <a class="card icon-card" href="pages/legislacao.html"><img src="assets/icons/legislacao.webp" alt=""><h3>Legislação</h3></a>
-      <a class="card icon-card" href="pages/transparencia.html"><img src="assets/icons/transparencia.webp" alt=""><h3>Transparência</h3></a>
-      <a class="card icon-card" href="pages/camara.html"><img src="assets/icons/camara.webp" alt=""><h3>Câmara</h3></a>
-      <a class="card icon-card" href="pages/adm-municipal.html"><img src="assets/icons/adm-municipal.webp" alt=""><h3>Adm. Municipal</h3></a>
-      <a class="card icon-card" href="pages/direitos-humanos.html"><img src="assets/icons/direitos-humanos.webp" alt=""><h3>Direitos Humanos</h3></a>
-      <a class="card icon-card" href="pages/cultura.html"><img src="assets/icons/cultura.webp" alt=""><h3>Cultura</h3></a>
-      <a class="card icon-card" href="pages/casa.html"><img src="assets/icons/casa.webp" alt=""><h3>Habitação</h3></a>
+      <a class="card icon-card reveal" href="pages/saude.html"><img src="assets/icons/saude.webp" alt=""><h3>Saúde</h3></a>
+      <a class="card icon-card reveal" href="pages/educacao.html"><img src="assets/icons/educacao.webp" alt=""><h3>Educação</h3></a>
+      <a class="card icon-card reveal" href="pages/orcamento.html"><img src="assets/icons/orcamento.webp" alt=""><h3>Orçamento</h3></a>
+      <a class="card icon-card reveal" href="pages/legislacao.html"><img src="assets/icons/legislacao.webp" alt=""><h3>Legislação</h3></a>
+      <a class="card icon-card reveal" href="pages/transparencia.html"><img src="assets/icons/transparencia.webp" alt=""><h3>Transparência</h3></a>
+      <a class="card icon-card reveal" href="pages/camara.html"><img src="assets/icons/camara.webp" alt=""><h3>Câmara</h3></a>
+      <a class="card icon-card reveal" href="pages/adm-municipal.html"><img src="assets/icons/adm-municipal.webp" alt=""><h3>Adm. Municipal</h3></a>
+      <a class="card icon-card reveal" href="pages/direitos-humanos.html"><img src="assets/icons/direitos-humanos.webp" alt=""><h3>Direitos Humanos</h3></a>
+      <a class="card icon-card reveal" href="pages/cultura.html"><img src="assets/icons/cultura.webp" alt=""><h3>Cultura</h3></a>
+      <a class="card icon-card reveal" href="pages/casa.html"><img src="assets/icons/casa.webp" alt=""><h3>Habitação</h3></a>
     </div>
   </section>
 
@@ -119,5 +114,6 @@
   </footer>
 
   <script src="assets/js/main.js"></script>
+<button id="backToTop" aria-label="Voltar ao topo"><i class="fa-solid fa-arrow-up"></i></button>
 </body>
 </html>

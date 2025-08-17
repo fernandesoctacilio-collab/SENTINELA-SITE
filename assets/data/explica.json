@@ -1,0 +1,23 @@
+[
+  {
+    "title": "O que \u00e9 Impessoalidade?",
+    "summary": "Princ\u00edpio que inibe favorecimentos e personalismos na gest\u00e3o p\u00fablica.",
+    "image": "https://picsum.photos/seed/impessoalidade/1200/700",
+    "slug": "exp1",
+    "content": "Impessoalidade significa tratar todos de forma ison\u00f4mica, focando no interesse p\u00fablico."
+  },
+  {
+    "title": "Como funciona a LDO",
+    "summary": "Entenda a liga\u00e7\u00e3o entre PPA, LDO e LOA de forma simples.",
+    "image": "https://picsum.photos/seed/ldo-explica/1200/700",
+    "slug": "exp2",
+    "content": "A LDO orienta a elabora\u00e7\u00e3o do or\u00e7amento anual e estabelece metas e prioridades."
+  },
+  {
+    "title": "Lei de Acesso \u00e0 Informa\u00e7\u00e3o (LAI)",
+    "summary": "Direito do cidad\u00e3o solicitar dados p\u00fablicos.",
+    "image": "https://picsum.photos/seed/lai/1200/700",
+    "slug": "exp3",
+    "content": "A LAI regula o acesso a informa\u00e7\u00f5es de \u00f3rg\u00e3os p\u00fablicos, ressalvados os sigilos legais."
+  }
+]
