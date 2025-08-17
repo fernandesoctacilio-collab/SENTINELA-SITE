@@ -1,33 +1,55 @@
 <!doctype html>
 <html lang="pt-BR">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ajuda Jurídica — Sentinela</title><link rel="stylesheet" href="../assets/css/main.css"></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ajuda Jurídica — Sentinela</title><link rel="stylesheet" href="../assets/css/main.css">
+<script defer src="../assets/js/main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.6.2/fuse.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.10/dayjs.min.js" defer></script>
+</head>
 <body>
 <header class="site-header"><nav class="nav">
-  <div class="logo">SENTINELA</div>
-  <div class="links">
-    <a href="../index.html">Início</a>
-    <a href="noticias.html">Notícias</a>
-    <a href="explica.html">Sentinela Explica</a>
-    <a href="ajuda.html">Ajuda Jurídica</a>
-    <a href="sobre.html">Sobre Nós</a>
-  </div>
+  <div class="logo">SENTINELA</div><button class="burger" aria-label="Abrir menu">☰</button>
+  <div class="links"><a href="../index.html">Início</a><a href="noticias.html">Notícias</a><a href="explica.html">Sentinela Explica</a><a href="ajuda.html">Ajuda Jurídica</a><a href="sobre.html">Sobre Nós</a></div>
   <a class="btn" href="denuncias.html">Enviar Denúncia</a>
 </nav></header>
 <section class="section reveal">
-  <nav class="breadcrumbs" aria-label="breadcrumb">
-    <a href="../index.html">Início</a> › Ajuda Jurídica
-  </nav>
+  <nav class="breadcrumbs" aria-label="breadcrumb"><a href="../index.html">Início</a> › Ajuda Jurídica</nav>
   <h2>Ajuda Jurídica</h2>
-  <p class="lead">Conteúdo fictício para visualização de layout. Substitua por conteúdo real.</p>
-  <div class="infobox"><p>Links e modelos fictícios.</p></div>
-<h3>Perguntas Frequentes</h3>
-<div class="grid grid-3 reveal">
-  <div class="card"><div class="p"><strong>Como faço uma denúncia anônima?</strong><p>Use o Canal de Denúncias e leia nossa política de proteção a fontes.</p></div></div>
-  <div class="card"><div class="p"><strong>Quais anexos são aceitos?</strong><p>Fotos, PDFs e documentos de texto.</p></div></div>
-  <div class="card"><div class="p"><strong>Recebo protocolo?</strong><p>Sim, um número para acompanhamento será exibido.</p></div></div>
+  <p class="lead">Conteúdo demonstrativo para visualização do layout.</p>
+  
+<h3>FAQ</h3>
+<div id="faq" class="accordion"></div>
+
+<h3>Calculadora de Prazos (LAI)</h3>
+<div class="form">
+  <div class="row">
+    <div class="col"><label for="diasBase">Prazo inicial (dias)</label><input id="diasBase" type="number" value="20"></div>
+    <div class="col"><label for="diasProrroga">Prorrogação (dias)</label><input id="diasProrroga" type="number" value="10"></div>
+  </div>
+  <div class="row">
+    <div class="col"><label for="dataInicio">Data do protocolo</label><input id="dataInicio" type="date"></div>
+    <div class="col"><label>&nbsp;</label><button id="calcPrazo" class="button">Calcular</button></div>
+  </div>
+  <p id="prazoResultado" class="hint"></p>
 </div>
+
+<h3>Gerador de Pedido (LAI)</h3>
+<div class="form">
+  <div class="row">
+    <div class="col"><label>Órgão</label><input id="laiOrgao" placeholder="Nome do órgão"></div>
+    <div class="col"><label>Assunto</label><input id="laiAssunto" placeholder="Assunto resumido"></div>
+  </div>
+  <div class="row">
+    <div class="col" style="grid-column:1 / -1"><label>Descrição do pedido</label><textarea id="laiDescricao" placeholder="Descreva sua solicitação"></textarea></div>
+  </div>
+  <div class="actions">
+    <button id="laiPreview" class="button">Preview</button>
+    <button id="laiPDF" class="button alt">Baixar PDF</button>
+  </div>
+  <p class="hint">Dica: rascunhos são salvos automaticamente no seu navegador.</p>
+</div>
+
 </section>
 <footer class="site-footer"><div class="inner"><p>© 2025 Sentinela Nativense</p></div></footer>
-<script src="../assets/js/main.js"></script>
 </body></html>

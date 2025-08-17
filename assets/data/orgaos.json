@@ -1,0 +1,20 @@
+[
+  {
+    "nome": "Prefeitura Municipal",
+    "categoria": "Administração",
+    "contato": "contato@prefeitura.exemplo",
+    "site": "https://www.prefeitura.exemplo"
+  },
+  {
+    "nome": "Câmara Municipal",
+    "categoria": "Legislativo",
+    "contato": "contato@camara.exemplo",
+    "site": "https://www.camara.exemplo"
+  },
+  {
+    "nome": "Secretaria de Saúde",
+    "categoria": "Saúde",
+    "contato": "saude@prefeitura.exemplo",
+    "site": "https://www.prefeitura.exemplo/saude"
+  }
+]

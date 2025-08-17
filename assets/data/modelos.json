@@ -1,0 +1,12 @@
+[
+  {
+    "id": "denuncia",
+    "titulo": "Modelo de Denúncia",
+    "conteudo": "Eu, [NOME], venho apresentar denúncia referente a [ASSUNTO], ocorrida em [LOCAL], no dia [DATA]. Descrevo os fatos: [DESCRIÇÃO]."
+  },
+  {
+    "id": "lai",
+    "titulo": "Pedido de Informação (LAI)",
+    "conteudo": "À [ÓRGÃO]. Solicito, com base na LAI, as seguintes informações: [DESCRIÇÃO]. Local e data. [ASSINATURA]."
+  }
+]
