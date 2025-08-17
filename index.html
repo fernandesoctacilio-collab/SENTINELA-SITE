@@ -2,6 +2,8 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0A2342">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;800&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -13,10 +15,7 @@
 </head>
 <body>
   <!-- Splash Screen: YouTube Shorts EMBED -->
-  <div id="splash">
-  <img src="assets/img/animação.gif" alt="Animação de abertura" id="splashGif">
-  <noscript><img src="assets/img/banner.webp" alt=""></noscript>
-</div>
+  <div id="splash"><img src="assets/img/animação.gif" alt="Animação de abertura" id="splashGif"></div>
 </div>
 
   <header class="site-header">
@@ -44,23 +43,28 @@
     </a>
   </section>
 
-  <section class="section">
-    <h2>Manchete</h2>
-    <p class="lead">Destaque investigativo da semana — matéria fictícia para visualização.</p>
-    <a class="card reveal" href="pages/noticias.html">
-      <img class="cover" src="https://picsum.photos/seed/educacao/1200/700" alt="Capa manchete">
-      <div class="p">
-        <h3>Relatório aponta falhas em licitações de serviços essenciais</h3>
-        <p>Levantamento simulado mostra inconsistências e atrasos. Este bloco exemplifica como as matérias em destaque
-        aparecerão no portal.</p>
-        <a class="btn-inline" href="pages/noticias.html">Ler reportagem</a>
-      </a>
+  
+<section class="section">
+  <h2>Manchete</h2>
+  <div class="card manchete reveal">
+    <img class="cover" data-reveal-img src="https://picsum.photos/seed/manchete/1200/700" alt="Manchete em destaque">
+    <div class="p">
+      <span class="chip destaque">URGENTE</span>
+      <h3>Fiscalização aponta irregularidades em contratos de serviços essenciais</h3>
+      <p>Resumo demonstrativo para evidenciar a área de manchete. Texto curto, objetivo e com ênfase visual.</p>
+      <a class="button" href="pages/noticias.html#destaque"><i class="fa-solid fa-bolt"></i> Abrir reportagem</a>
     </div>
-  </section>
+  </div>
+</section>
+
 
   <section class="section">
   <h2>Últimas Notícias</h2>
-  <div id="newsGrid" class="grid grid-3"></div>
+  <div id="newsGrid" class="grid grid-3 skeleton-grid">
+  <div class="skeleton-card"></div>
+  <div class="skeleton-card"></div>
+  <div class="skeleton-card"></div>
+</div>
 </section>
 
   <section class="section">
@@ -71,11 +75,11 @@
         <div class="p"><h3>O que é Impessoalidade?</h3><p>Texto de exemplo explicando princípios administrativos.</p><a class="btn-inline" href="pages/explica.html">Entenda</a></a>
       </div>
       <a class="card reveal delay-1" href="pages/noticias.html">
-        <img loading="lazy" data-reveal-img class="cover" src="assets/img/banner.webp" alt="">
+        <img loading="lazy" data-reveal-img class="cover" src="assets/img/avatar.webp" alt="">
         <div class="p"><h3>Como funciona a LDO</h3><p>Explicativo fictício com linguagem clara.</p><a class="btn-inline" href="pages/explica.html">Entenda</a></div>
       </div>
       <a class="card reveal delay-1" href="pages/noticias.html">
-        <img loading="lazy" data-reveal-img class="cover" src="assets/img/banner.webp" alt="">
+        <img loading="lazy" data-reveal-img class="cover" src="assets/img/avatar.webp" alt="">
         <div class="p"><h3>Direito de Acesso à Informação</h3><p>Passo a passo simulado para pedidos de informação.</p><a class="btn-inline" href="pages/explica.html">Entenda</a></div>
       </div>
     </div>
@@ -113,5 +117,21 @@
 
   <script src="assets/js/main.js"></script>
 <button id="backToTop" aria-label="Voltar ao topo"><i class="fa-solid fa-arrow-up"></i></button>
+
+<script>
+  window.SENTINELA_FEEDS = {
+    // tentativa principal (RSS G1 regional via rss2json)
+    rss2json: "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent("https://g1.globo.com/dynamo/sp/vale-do-paraiba-regiao/rss2.xml"),
+    // fallback: página regional (apenas links)
+    fallbackLinks: [
+      { title: "G1 Vale do Paraíba e região — Página regional", url: "https://g1.globo.com/sp/vale-do-paraiba-regiao/" },
+      { title: "Rede Vanguarda (X)", url: "https://x.com/g1vanguarda" }
+    ]
+  };
+</script>
+
+<script>
+if("serviceWorker" in navigator){navigator.serviceWorker.register("service-worker.js").catch(()=>{});} 
+</script>
 </body>
 </html>

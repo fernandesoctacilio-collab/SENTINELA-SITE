@@ -1,17 +1,44 @@
-// ===== Splash com GIF local =====
+
+// ===== Splash GIF control (ensure present) =====
 (function(){
   const splash = document.getElementById('splash');
   const img = document.getElementById('splashGif');
   if(!splash) return;
   const hide = ()=>{ splash.classList.add('fade-out'); setTimeout(()=> splash.remove(), 800); };
-  if(img){
-    // se carregar, espera 5200ms para dar tempo de exibir
-    img.addEventListener('load', ()=> setTimeout(hide, 5200), {once:true});
-    img.addEventListener('error', ()=> setTimeout(hide, 400), {once:true});
-  }
-  // segurança: se nada acontecer, some em 7s
+  if(img){ img.addEventListener('load', ()=> setTimeout(hide, 5200), {once:true}); img.addEventListener('error', ()=> setTimeout(hide, 400), {once:true}); }
   setTimeout(hide, 7000);
 })();
+
+// ===== Utility: turn a grid into a rotating deck =====
+function startRotation(container, intervalMs=4500, visibleCount=3){
+  if(!container) return;
+  container.classList.add('rotating');
+  let items = Array.from(container.children);
+  if(items.length <= visibleCount) return;
+  let index = 0;
+  setInterval(()=>{
+    // hide first visible and append to end
+    items = Array.from(container.children);
+    const toMove = items[0];
+    toMove.classList.add('hide');
+    setTimeout(()=>{
+      toMove.classList.remove('hide');
+      container.appendChild(toMove);
+    }, 480);
+  }, intervalMs);
+}
+
+// ===== After dynamic content render, start rotations & remove skeletons =====
+function initDynamicDecks(){
+  const newsGrid = document.getElementById('newsGrid');
+  const expGrid = document.getElementById('explicaGrid');
+  // remove skeletons if any
+  document.querySelectorAll('.skeleton-grid').forEach(s => s.classList.remove('skeleton-grid'));
+  document.querySelectorAll('.skeleton-card').forEach(s => s.remove());
+  startRotation(newsGrid, 4500, 3);
+  startRotation(expGrid, 5000, 3);
+}
+
 
 // ===== Load & render dynamic content from JSON =====
 async function fetchJSON(path){ const r = await fetch(path); return r.json(); }
@@ -43,7 +70,7 @@ async function renderHomepage(){
     }
   }catch(err){ console.warn('Falha ao carregar conteúdo dinâmico', err); }
 }
-renderHomepage();
+renderHomepage().then(initDynamicDecks).catch(initDynamicDecks);
 
 // ===== Notícias page: list + search =====
 async function renderNewsPage(){
@@ -164,7 +191,32 @@ renderExplicaPage();
   }, {passive:true});
 })();
 
-// (removido bloco MP4)
+// ===== Splash with local MP4 (from repo path) =====
+(function(){
+  const splash = document.getElementById('splash');
+  if(!splash) return;
+  const v = document.getElementById('splashVideo');
+  const safeHide = (ms=300)=>{
+    setTimeout(()=>{
+      splash.classList.add('fade-out');
+      setTimeout(()=> splash.remove(), 900);
+    }, ms);
+  };
+  if(v){
+    // play, then hide when ended; hard timeout fallback
+    v.addEventListener('ended', ()=> safeHide(50));
+    v.addEventListener('error', ()=> safeHide(100));
+    // some browsers block autoplay; try play()
+    const tryPlay = v.play && v.play();
+    if(tryPlay && typeof tryPlay.catch === 'function'){
+      tryPlay.catch(()=> safeHide(800)); // if blocked, hide quickly
+    }
+    // safety timeout
+    setTimeout(()=> safeHide(800), 8000);
+  }else{
+    safeHide(200);
+  }
+})();
 
 
 
@@ -225,3 +277,42 @@ window.addEventListener('load', ()=>{
     setTimeout(()=>splash.remove(), 1000);
   }, 3500);
 });
+
+
+// ===== Live regional news loader (G1 Vale do Paraíba) =====
+(async function(){
+  const grid = document.getElementById('newsGrid');
+  if(!grid || !window.SENTINELA_FEEDS) return;
+  const { rss2json, fallbackLinks } = window.SENTINELA_FEEDS;
+  try{
+    const resp = await fetch(rss2json, {cache:'no-store'});
+    if(!resp.ok) throw new Error('HTTP ' + resp.status);
+    const data = await resp.json();
+    const items = (data.items||[]).slice(0,6);
+    if(items.length){
+      grid.innerHTML = '';
+      items.forEach((item, i)=>{
+        const a = document.createElement('a');
+        a.className = 'card reveal delay-' + ((i%3)+1);
+        a.href = item.link; a.target = '_blank'; a.rel = 'noopener';
+        const img = (item.thumbnail || (item.enclosure&&item.enclosure.link) || 'https://picsum.photos/seed/vanguarda'+i+'/1200/700');
+        a.innerHTML = `<img loading="lazy" data-reveal-img class="cover" src="${img}" alt="${item.title}">
+          <div class="p"><span class="chip">G1 Vale</span><h3>${item.title}</h3>
+          <p>${(item.description||'').replace(/<[^>]+>/g,'').slice(0,140)}...</p></div>`;
+        grid.appendChild(a);
+      });
+      return;
+    }
+    throw new Error('Sem itens no feed');
+  }catch(e){
+    console.warn('Feed regional indisponível, usando fallback', e);
+    grid.innerHTML = '';
+    fallbackLinks.forEach((l, i)=>{
+      const a = document.createElement('a');
+      a.className = 'card reveal delay-' + (i+1);
+      a.href = l.url; a.target = '_blank'; a.rel = 'noopener';
+      a.innerHTML = `<div class="p"><h3>${l.title}</h3><p>Abrir em nova aba</p></div>`;
+      grid.appendChild(a);
+    });
+  }
+})();

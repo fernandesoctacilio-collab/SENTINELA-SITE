@@ -1,0 +1,9 @@
+{
+  "name": "Sentinela Nativense",
+  "short_name": "Sentinela",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0A2342",
+  "theme_color": "#0A2342",
+  "icons": []
+}

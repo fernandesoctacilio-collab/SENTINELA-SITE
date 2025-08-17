@@ -203,3 +203,49 @@ body{letter-spacing:0.1px}
 
 /* Card tag chip */
 .chip{display:inline-block; padding:4px 8px; border-radius:10px; font-size:.75rem; background:#e8eef9; color:#0A2342; font-weight:700}
+
+/* --- Manchete destaque --- */
+.card.manchete{border-left:8px solid var(--vermelho); position:relative; overflow:hidden}
+.card.manchete .p{position:relative}
+.chip.destaque{background:#fff0f0; color:var(--vermelho); border:1px solid #f4c4c4}
+
+/* --- Menu centralizado --- */
+.nav{justify-content:center}
+.logo{margin-right:auto}
+.btn{margin-left:auto}
+
+/* --- Área de atuação moderna com ícones "flutuantes" --- */
+.grid-4 .icon-card{position:relative; overflow:visible; background:linear-gradient(180deg,#ffffff, #f7faff)}
+.grid-4 .icon-card::before{
+  content:""; position:absolute; inset:auto 18px -12px 18px; height:20px;
+  background:radial-gradient(closest-side, rgba(0,0,0,.12), transparent);
+  filter: blur(6px); z-index:-1;
+}
+.icon-card img{filter: drop-shadow(0 10px 16px rgba(10,35,66,.25)); transform:translateY(-4px);}
+.icon-card:hover img{transform:translateY(-8px) scale(1.06)}
+
+/* --- Banner text stronger overlay --- */
+.banner::before{background:linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.35))}
+
+/* Skeleton loaders */
+.skeleton-grid{position:relative}
+.skeleton-card{
+  height:260px; border-radius:var(--radius);
+  background: linear-gradient(90deg, #e9edf5 0%, #f5f7fb 50%, #e9edf5 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.2s infinite;
+  box-shadow: var(--shadow);
+}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* Rotating deck effect */
+.rotating { display:grid; gap:18px }
+.rotating .card { transition: transform .5s ease, opacity .5s ease }
+.rotating .card.hide { opacity:0; transform: translateY(10px) scale(.98) }
+
+/* Extra stagger */
+.reveal.stg-1{transition-delay:.06s}
+.reveal.stg-2{transition-delay:.12s}
+.reveal.stg-3{transition-delay:.18s}
+.reveal.stg-4{transition-delay:.24s}
+.reveal.stg-5{transition-delay:.30s}
