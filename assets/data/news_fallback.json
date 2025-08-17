@@ -1,0 +1,23 @@
+[
+  {
+    "title": "G1 – Notícias do Vale do Paraíba e região",
+    "link": "https://g1.globo.com/sp/vale-do-paraiba-regiao/",
+    "image": "https://picsum.photos/seed/g1vale/1200/700",
+    "description": "Cobertura completa da região.",
+    "tag": "Regional"
+  },
+  {
+    "title": "O Vale – Portal de notícias",
+    "link": "https://www.ovale.com.br/",
+    "image": "https://picsum.photos/seed/ovale/1200/700",
+    "description": "Noticiário local atualizado.",
+    "tag": "Regional"
+  },
+  {
+    "title": "Vale360 – Notícias locais",
+    "link": "https://www.vale360.com.br/",
+    "image": "https://picsum.photos/seed/vale360/1200/700",
+    "description": "Informações e destaques.",
+    "tag": "Regional"
+  }
+]

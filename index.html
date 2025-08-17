@@ -49,18 +49,13 @@
 <footer class="site-footer"><div class="inner"><p>© 2025 Sentinela Nativense — Transparência e Ação Cidadã</p></div></footer>
 <button id="backToTop" aria-label="Voltar ao topo">↑</button>
 <script>
-window.SENTINELA_FEEDS={sources:{
- google_news:"https://r.jina.ai/https://news.google.com/rss/search?q=Vale+do+Para%C3%ADba+Natividade+da+Serra+site:g1.globo.com+OR+site:ovale.com.br+OR+site:vale360.com.br&hl=pt-BR&gl=BR&ceid=BR:pt-419",
- g1_rss2json:"https://api.rss2json.com/v1/api.json?rss_url="+encodeURIComponent("https://g1.globo.com/dynamo/sp/vale-do-paraiba-regiao/rss2.xml"),
- g1_xml:"https://r.jina.ai/http://g1.globo.com/dynamo/sp/vale-do-paraiba-regiao/rss2.xml",
- g1_html:"https://r.jina.ai/https://g1.globo.com/sp/vale-do-paraiba-regiao/",
- ovale_html:"https://r.jina.ai/https://www.ovale.com.br/",
- vale360_html:"https://r.jina.ai/https://www.vale360.com.br/"
- },fallbackLinks:[
-  {title:"G1 Vale do Paraíba e região — Página regional",url:"https://g1.globo.com/sp/vale-do-paraiba-regiao/"},
-  {title:"O Vale — Portal",url:"https://www.ovale.com.br/"},
-  {title:"Vale360 — Portal",url:"https://www.vale360.com.br/"}
- ]};
+window.SENTINELA_FEEDS = {
+      sources: {
+        google_rss2json: "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent("https://news.google.com/rss/search?q=Vale+do+Para%C3%ADba+Natividade+da+Serra&hl=pt-BR&gl=BR&ceid=BR:pt-419"),
+        g1_rss2json: "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent("https://g1.globo.com/dynamo/sp/vale-do-paraiba-regiao/rss2.xml")
+      },
+      fallbackLinks: []
+    };
 if('serviceWorker' in navigator){navigator.serviceWorker.register('pwa/service-worker.js').catch(()=>{});}
 </script>
 </body></html>
