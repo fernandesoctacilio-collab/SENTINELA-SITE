@@ -1,18 +1,18 @@
 [
   {
     "q": "Como faço uma denúncia anônima?",
-    "a": "Use o Canal de Denúncias. Seus dados são opcionais e protegidos. Você pode anexar documentos e fotos."
+    "a": "Use o Canal de Denúncias. Seus dados são opcionais e protegidos."
   },
   {
     "q": "Quais documentos são aceitos?",
-    "a": "PDF, imagens (JPG/PNG/WEBP) e arquivos de texto. Evite fotos desfocadas."
+    "a": "PDF, imagens (JPG/PNG/WEBP) e arquivos de texto."
   },
   {
     "q": "Recebo um protocolo?",
-    "a": "Sim. Geramos um protocolo local para seu controle. Guarde-o para consultas."
+    "a": "Sim, geramos um protocolo local para seu controle."
   },
   {
     "q": "Como solicitar informações (LAI)?",
-    "a": "Use nosso assistente para gerar o pedido com base na LAI. Você pode salvar um rascunho e exportar em PDF."
+    "a": "Use nosso assistente para gerar o pedido."
   }
 ]

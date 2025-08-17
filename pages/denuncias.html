@@ -1,23 +1,11 @@
-<!doctype html>
-<html lang="pt-BR">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Canal de Denúncias — Sentinela</title><link rel="stylesheet" href="../assets/css/main.css">
-<script defer src="../assets/js/main.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.6.2/fuse.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.10/dayjs.min.js" defer></script>
-</head>
-<body>
-<header class="site-header"><nav class="nav">
-  <div class="logo">SENTINELA</div><button class="burger" aria-label="Abrir menu">☰</button>
-  <div class="links"><a href="../index.html">Início</a><a href="noticias.html">Notícias</a><a href="explica.html">Sentinela Explica</a><a href="ajuda.html">Ajuda Jurídica</a><a href="sobre.html">Sobre Nós</a></div>
-  <a class="btn" href="denuncias.html">Enviar Denúncia</a>
-</nav></header>
-<section class="section reveal">
-  <nav class="breadcrumbs" aria-label="breadcrumb"><a href="../index.html">Início</a> › Canal de Denúncias</nav>
-  <h2>Canal de Denúncias</h2>
-  <p class="lead">Conteúdo demonstrativo para visualização do layout.</p>
-  
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Canal de Denúncias — Sentinela</title><link rel="stylesheet" href="../assets/css/main.min.css"><script defer src="../assets/js/main.min.js"></script></head>
+<body><header class="site-header"><nav class="nav">
+<div class="logo">SENTINELA</div><button class="burger" aria-label="Abrir menu">☰</button>
+<div class="links"><a href="../index.html">Início</a><a href="noticias.html">Notícias</a><a href="explica.html">Sentinela Explica</a><a href="ajuda.html">Ajuda Jurídica</a><a href="sobre.html">Sobre Nós</a></div>
+<a class="btn" href="denuncias.html">Enviar Denúncia</a></nav></header>
+<section class="section reveal"><nav class="breadcrumbs" aria-label="breadcrumb"><a href="../index.html">Início</a> › Canal de Denúncias</nav>
+<h2>Canal de Denúncias</h2><p class="lead">Conteúdo demonstrativo para visualização do layout.</p>
 <div class="form" id="denunciaForm">
   <div class="row">
     <div class="col" style="grid-column:1 / -1"><label for="desc">Descrição (obrigatório)</label><textarea id="desc" required placeholder="Relate os fatos com detalhes"></textarea></div>
@@ -33,18 +21,13 @@
   <p class="hint">Seus dados são opcionais. Leia nossa política de privacidade.</p>
   <div class="actions">
     <button id="previewDenuncia" class="button">Preview</button>
-    <button id="pdfDenuncia" class="button alt">Baixar PDF</button>
     <button id="salvarRascunho" class="button warn">Salvar Rascunho</button>
     <button id="gerarProtocolo" class="button">Gerar Protocolo</button>
   </div>
   <p id="statusDenuncia" class="hint"></p>
 </div>
-
 <div id="modalDenuncia" class="card" style="display:none;position:fixed;inset:10% 6%;background:#fff;z-index:70;box-shadow:0 18px 40px rgba(0,0,0,.22);overflow:auto;max-height:80%">
-  <div class="p"><button id="closeDenuncia" class="button" style="float:right;background:#D72638">Fechar</button>
-  <div id="conteudoPreview"></div></div>
+  <div class="p"><button id="closeDenuncia" class="button" style="float:right;background:#D72638">Fechar</button><div id="conteudoPreview"></div></div>
 </div>
-
 </section>
-<footer class="site-footer"><div class="inner"><p>© 2025 Sentinela Nativense</p></div></footer>
-</body></html>
+<footer class="site-footer"><div class="inner"><p>© 2025 Sentinela Nativense</p></div></footer></body></html>

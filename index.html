@@ -1,134 +1,66 @@
-<!doctype html>
-<html lang="pt-BR">
-<head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Sentinela Nativense</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/main.css">
-  <link rel="manifest" href="pwa/manifest.json">
-  <meta name="theme-color" content="#0A2342">
-  <script defer src="assets/js/main.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.6.2/fuse.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.10/dayjs.min.js" defer></script>
-</head>
-<body>
-  <!-- Splash com GIF local -->
-  <div id="splash"><img src="assets/img/animação.gif" alt="Animação de abertura" id="splashGif"></div>
-
-  <header class="site-header">
-    <nav class="nav">
-      <div class="logo">SENTINELA</div>
-      <button class="burger" aria-label="Abrir menu">☰</button>
-      <div class="links">
-        <a href="index.html">Início</a>
-        <a href="pages/noticias.html">Notícias</a>
-        <a href="pages/explica.html">Sentinela Explica</a>
-        <a href="pages/ajuda.html">Ajuda Jurídica</a>
-        <a href="pages/sobre.html">Sobre Nós</a>
-      </div>
-      <a class="btn" href="pages/denuncias.html">Enviar Denúncia</a>
-    </nav>
-  </header>
-
-  <!-- HERO -->
-  <section class="hero">
-    <img src="assets/img/avatar.webp" alt="Banner">
-    <div class="inner">
-      <h1>Transparência e Ação Cidadã</h1>
-      <p>Jornalismo investigativo com foco em Natividade da Serra e região.</p>
-      <div class="ctas">
-        <a class="button warn" href="pages/denuncias.html">Fazer Denúncia</a>
-        <a class="button alt" href="pages/ajuda.html">Solicitar Informação</a>
-        <a class="button" href="pages/sobre.html">Sobre o Projeto</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <h2>Manchete</h2>
-    <div class="card manchete reveal">
-      <img class="cover" data-reveal-img src="https://picsum.photos/seed/manchete/1200/700" alt="Manchete em destaque">
-      <div class="p">
-        <span class="chip destaque">URGENTE</span>
-        <h3>Fiscalização aponta irregularidades em contratos essenciais</h3>
-        <p>Resumo demonstrativo para evidenciar a área de manchete com CTA destacado.</p>
-        <a class="button" href="pages/noticias.html#destaque">Abrir reportagem</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <h2>Últimas Notícias</h2>
-    <div class="carousel">
-      <button class="car-btn prev" aria-label="Anterior" data-for="newsGrid">‹</button>
-      <div id="newsGrid" class="carousel-track">
-        <div class="skeleton-card"></div><div class="skeleton-card"></div><div class="skeleton-card"></div>
-      </div>
-      <button class="car-btn next" aria-label="Próximo" data-for="newsGrid">›</button>
-    </div>
-  </section>
-
-  <section class="section" style="background:var(--azul-claro)">
-    <h2>Sentinela Explica</h2>
-    <div class="carousel">
-      <button class="car-btn prev" aria-label="Anterior" data-for="explicaGrid">‹</button>
-      <div id="explicaGrid" class="carousel-track">
-        <div class="skeleton-card"></div><div class="skeleton-card"></div><div class="skeleton-card"></div>
-      </div>
-      <button class="car-btn next" aria-label="Próximo" data-for="explicaGrid">›</button>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="infobox reveal">
-      <h2>Ajuda ao Cidadão</h2>
-      <p>Modelos, orientações e primeiros passos para encaminhar denúncias e solicitações.</p>
-      <a class="button alt" href="pages/ajuda.html">Acessar Ajuda Jurídica</a>
-    </div>
-  </section>
-
-  <section class="section">
-    <h2>Áreas de Atuação</h2>
-    <div class="grid grid-4">
-      <a class="card icon-card reveal" href="pages/saude.html"><img data-reveal-img src="assets/img/ico-saude.webp" alt="Saúde"><h3>Saúde</h3></a>
-      <a class="card icon-card reveal" href="pages/educacao.html"><img data-reveal-img src="assets/img/ico-educacao.webp" alt="Educação"><h3>Educação</h3></a>
-      <a class="card icon-card reveal" href="pages/orcamento.html"><img data-reveal-img src="assets/img/ico-orcamento.webp" alt="Orçamento"><h3>Orçamento</h3></a>
-      <a class="card icon-card reveal" href="pages/legislacao.html"><img data-reveal-img src="assets/img/ico-legislacao.webp" alt="Legislação"><h3>Legislação</h3></a>
-    </div>
-  </section>
-
-  <footer class="site-footer">
-    <div class="inner">
-      <p>© 2025 Sentinela Nativense — Transparência e Ação Cidadã</p>
-    </div>
-  </footer>
-
-  <button id="backToTop" aria-label="Voltar ao topo">↑</button>
-
-  <!-- Config de feeds (multi-fonte) -->
-  <script>
-    window.SENTINELA_FEEDS = {
-      sources: {
-        google_news: "https://r.jina.ai/https://news.google.com/rss/search?q=Vale+do+Para%C3%ADba+Natividade+da+Serra+site:g1.globo.com+OR+site:ovale.com.br+OR+site:vale360.com.br&hl=pt-BR&gl=BR&ceid=BR:pt-419",
-        g1_rss2json:
-          "https://api.rss2json.com/v1/api.json?rss_url=" +
-          encodeURIComponent("https://g1.globo.com/dynamo/sp/vale-do-paraiba-regiao/rss2.xml"),
-        g1_xml: "https://r.jina.ai/http://g1.globo.com/dynamo/sp/vale-do-paraiba-regiao/rss2.xml",
-        g1_html: "https://r.jina.ai/https://g1.globo.com/sp/vale-do-paraiba-regiao/",
-        ovale_html: "https://r.jina.ai/https://www.ovale.com.br/",
-        vale360_html: "https://r.jina.ai/https://www.vale360.com.br/"
-      },
-      fallbackLinks: [
-        { title: "G1 Vale do Paraíba e região — Página regional", url: "https://g1.globo.com/sp/vale-do-paraiba-regiao/" },
-        { title: "O Vale — Portal", url: "https://www.ovale.com.br/" },
-        { title: "Vale360 — Portal", url: "https://www.vale360.com.br/" }
-      ]
-    };
-  </script>
-  <script>
-    if('serviceWorker' in navigator){navigator.serviceWorker.register('pwa/service-worker.js').catch(()=>{});}
-  </script>
-</body>
-</html>
+<!doctype html><html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sentinela Nativense</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/main.min.css">
+<link rel="manifest" href="pwa/manifest.json"><meta name="theme-color" content="#0A2342">
+<script defer src="assets/js/main.min.js"></script>
+</head><body>
+<div id="splash"><img alt="Animação de abertura" id="splashGif"></div>
+<header class="site-header"><nav class="nav">
+<div class="logo">SENTINELA</div><button class="burger" aria-label="Abrir menu">☰</button>
+<div class="links"><a href="index.html">Início</a><a href="pages/noticias.html">Notícias</a><a href="pages/explica.html">Sentinela Explica</a><a href="pages/ajuda.html">Ajuda Jurídica</a><a href="pages/sobre.html">Sobre Nós</a></div>
+<a class="btn" href="pages/denuncias.html">Enviar Denúncia</a>
+</nav></header>
+<section class="hero">
+  <img src="assets/img/avatar-1200.webp" srcset="assets/img/avatar-400.webp 400w, assets/img/avatar-800.webp 800w, assets/img/avatar-1200.webp 1200w" sizes="100vw" alt="Banner do Sentinela" loading="eager" fetchpriority="high">
+  <div class="inner">
+    <h1>Transparência e Ação Cidadã</h1>
+    <p>Jornalismo investigativo com foco em Natividade da Serra e região.</p>
+    <div class="ctas"><a class="button warn" href="pages/denuncias.html">Fazer Denúncia</a><a class="button alt" href="pages/ajuda.html">Solicitar Informação</a><a class="button" href="pages/sobre.html">Sobre o Projeto</a></div>
+  </div>
+</section>
+<section class="section">
+  <h2>Manchete</h2>
+  <div class="card manchete reveal">
+    <img class="cover" data-reveal-img src="https://picsum.photos/seed/manchete/1200/700" alt="Manchete em destaque">
+    <div class="p"><span class="chip destaque">URGENTE</span><h3>Fiscalização aponta irregularidades em contratos essenciais</h3><p>Resumo piloto para evidenciar a área de manchete com CTA claro.</p><a class="button" href="pages/noticias.html#destaque">Abrir reportagem</a></div>
+  </div>
+</section>
+<section class="section"><h2>Últimas Notícias</h2>
+  <div class="carousel"><button class="car-btn prev" aria-label="Anterior" data-for="newsGrid">‹</button>
+    <div id="newsGrid" class="carousel-track"><div class="skeleton-card"></div><div class="skeleton-card"></div><div class="skeleton-card"></div></div>
+  <button class="car-btn next" aria-label="Próximo" data-for="newsGrid">›</button></div>
+</section>
+<section class="section" style="background:var(--azul-claro)"><h2>Sentinela Explica</h2>
+  <div class="carousel"><button class="car-btn prev" aria-label="Anterior" data-for="explicaGrid">‹</button>
+    <div id="explicaGrid" class="carousel-track"><div class="skeleton-card"></div><div class="skeleton-card"></div><div class="skeleton-card"></div></div>
+  <button class="car-btn next" aria-label="Próximo" data-for="explicaGrid">›</button></div>
+</section>
+<section class="section"><h2>Áreas de Atuação</h2>
+  <div class="grid grid-4">
+    <a class="card icon-card reveal" href="pages/saude.html"><img data-reveal-img src="assets/img/ico-saude.webp" alt="Saúde"><h3>Saúde</h3></a>
+    <a class="card icon-card reveal" href="pages/educacao.html"><img data-reveal-img src="assets/img/ico-educacao.webp" alt="Educação"><h3>Educação</h3></a>
+    <a class="card icon-card reveal" href="pages/orcamento.html"><img data-reveal-img src="assets/img/ico-orcamento.webp" alt="Orçamento"><h3>Orçamento</h3></a>
+    <a class="card icon-card reveal" href="pages/legislacao.html"><img data-reveal-img src="assets/img/ico-legislacao.webp" alt="Legislação"><h3>Legislação</h3></a>
+  </div>
+</section>
+<footer class="site-footer"><div class="inner"><p>© 2025 Sentinela Nativense — Transparência e Ação Cidadã</p></div></footer>
+<button id="backToTop" aria-label="Voltar ao topo">↑</button>
+<script>
+window.SENTINELA_FEEDS={sources:{
+ google_news:"https://r.jina.ai/https://news.google.com/rss/search?q=Vale+do+Para%C3%ADba+Natividade+da+Serra+site:g1.globo.com+OR+site:ovale.com.br+OR+site:vale360.com.br&hl=pt-BR&gl=BR&ceid=BR:pt-419",
+ g1_rss2json:"https://api.rss2json.com/v1/api.json?rss_url="+encodeURIComponent("https://g1.globo.com/dynamo/sp/vale-do-paraiba-regiao/rss2.xml"),
+ g1_xml:"https://r.jina.ai/http://g1.globo.com/dynamo/sp/vale-do-paraiba-regiao/rss2.xml",
+ g1_html:"https://r.jina.ai/https://g1.globo.com/sp/vale-do-paraiba-regiao/",
+ ovale_html:"https://r.jina.ai/https://www.ovale.com.br/",
+ vale360_html:"https://r.jina.ai/https://www.vale360.com.br/"
+ },fallbackLinks:[
+  {title:"G1 Vale do Paraíba e região — Página regional",url:"https://g1.globo.com/sp/vale-do-paraiba-regiao/"},
+  {title:"O Vale — Portal",url:"https://www.ovale.com.br/"},
+  {title:"Vale360 — Portal",url:"https://www.vale360.com.br/"}
+ ]};
+if('serviceWorker' in navigator){navigator.serviceWorker.register('pwa/service-worker.js').catch(()=>{});}
+</script>
+</body></html>
