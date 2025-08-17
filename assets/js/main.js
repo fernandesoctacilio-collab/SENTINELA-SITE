@@ -21,10 +21,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
   burger?.addEventListener('click', ()=> nav.classList.toggle('open'));
   // back to top
   const topBtn=document.getElementById('backToTop');
-  window.addEventListener('scroll', ()=>{
-    if((window.scrollY||0)>400) topBtn.classList.add('show'); else topBtn.classList.remove('show');
-  }, {passive:true});
-  topBtn?.addEventListener('click', ()=> window.scrollTo({top:0,behavior:'smooth'}));
+if(topBtn){
+  window.addEventListener('scroll', ()=>{ if((window.scrollY||0)>400) topBtn.classList.add('show'); else topBtn.classList.remove('show'); }, {passive:true});
+  addEventListener('click', ()=> window.scrollTo({top:0,behavior:'smooth'}));
 });
 
 // ===== Splash GIF control =====
@@ -65,7 +64,7 @@ async function renderHomepage(){
       // remove skeletons
       newsGrid.innerHTML='';
       news.slice(0,6).forEach((n)=>{
-        const a=document.createElement('a'); a.className='card reveal'; a.href=n.url;
+        const a=document.createElement('a'); a.className='card reveal'; a.href = (n && n.url) ? n.url : '#';
         a.innerHTML=`<img loading="lazy" data-reveal-img class="cover" src="${n.image}" alt="${n.title}"><div class="p"><span class="chip">${n.tag||''}</span><h3>${n.title}</h3><p>${n.summary}</p></div>`;
         newsGrid.appendChild(a);
       });
@@ -89,8 +88,8 @@ renderHomepage().then(()=>{ initCarousels(); }).catch(()=>{ initCarousels(); });
   function render(items){
     grid.innerHTML='';
     items.slice(0,12).forEach((it,i)=>{
-      const a=document.createElement('a'); a.className='card reveal'; a.target='_blank'; a.rel='noopener'; a.href=it.link;
-      const img= it.image || 'https://picsum.photos/seed/vale'+i+'/1200/700';
+      const a=document.createElement('a'); a.className='card reveal'; a.target='_blank'; a.rel='noopener'; a.href = it.link || '#';
+      const img = (it.image && it.image !== 'undefined') ? it.image : ('https://picsum.photos/seed/vale'+i+'/1200/700');
       a.innerHTML=`<img loading="lazy" data-reveal-img class="cover" src="${img}" alt="${it.title}"><div class="p"><span class="chip">${it.tag||'Regional'}</span><h3>${it.title}</h3><p>${(it.description||'').slice(0,140)}...</p></div>`;
       grid.appendChild(a);
     });
@@ -144,7 +143,7 @@ renderHomepage().then(()=>{ initCarousels(); }).catch(()=>{ initCarousels(); });
   function draw(items){
     list.innerHTML='';
     items.forEach((n,i)=>{
-      const a=document.createElement('a'); a.className='card reveal'; a.href=n.url;
+      const a=document.createElement('a'); a.className='card reveal'; a.href = (n && n.url) ? n.url : '#';
       a.innerHTML=`<img loading="lazy" data-reveal-img class="cover" src="${n.image}" alt="${n.title}"><div class="p"><span class="chip">${n.tag||''}</span><h3>${n.title}</h3><p>${n.summary}</p></div>`;
       list.appendChild(a);
     });
