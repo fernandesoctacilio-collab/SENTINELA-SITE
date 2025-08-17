@@ -1,23 +1,21 @@
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Sentinela Nativense</title>
   <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="preconnect" href="https://www.youtube.com">
 </head>
 <body>
-  
-  <!-- Splash Screen -->
+  <!-- Splash Screen: YouTube Shorts EMBED -->
   <div id="splash">
-    <img src="assets/img/animacao.gif" alt="Abertura" style="width:100%;height:100%;object-fit:cover;">
+    <iframe src="https://www.youtube.com/embed/0Gp9P3fZqic?autoplay=1&mute=1&controls=0&rel=0&playsinline=1&modestbranding=1" allow="autoplay; fullscreen"></iframe>
   </div>
 
-
-  <!-- Header -->
-  <header>
-    <nav>
+  <header class="site-header">
+    <nav class="nav">
       <div class="logo">SENTINELA</div>
       <div class="links">
         <a href="index.html">Início</a>
@@ -26,60 +24,96 @@
         <a href="pages/ajuda.html">Ajuda Jurídica</a>
         <a href="pages/sobre.html">Sobre Nós</a>
       </div>
-      <a href="pages/denuncias.html" class="btn">Enviar Denúncia</a>
+      <a class="btn" href="pages/denuncias.html">Enviar Denúncia</a>
     </nav>
   </header>
 
-  <!-- Banner -->
-  <section class="banner" style="background-image:url('assets/img/banner.webp')">
-    Transparência e Jornalismo Cidadão
+  <section class="banner">
+    <img src="assets/img/banner.webp" alt="Banner investigativo">
+    <div class="banner-text">
+      <h1>Transparência e Ação Cidadã</h1>
+      <p>Jornalismo investigativo com foco em Natividade da Serra</p>
+    </div>
   </section>
 
-  <!-- Notícias -->
+  <section class="section">
+    <h2>Manchete</h2>
+    <p class="lead">Destaque investigativo da semana — matéria fictícia para visualização.</p>
+    <div class="card">
+      <img class="cover" src="assets/img/banner.webp" alt="Capa manchete">
+      <div class="p">
+        <h3>Relatório aponta falhas em licitações de serviços essenciais</h3>
+        <p>Levantamento simulado mostra inconsistências e atrasos. Este bloco exemplifica como as matérias em destaque
+        aparecerão no portal.</p>
+        <a class="btn-inline" href="pages/noticias.html">Ler reportagem</a>
+      </div>
+    </div>
+  </section>
+
   <section class="section">
     <h2>Últimas Notícias</h2>
     <div class="grid grid-3">
-      <div class="card">Notícia 1</div>
-      <div class="card">Notícia 2</div>
-      <div class="card">Notícia 3</div>
+      <div class="card">
+        <img class="cover" src="assets/img/banner.webp" alt="">
+        <div class="p"><h3>Vereadores debatem PL sobre transparência</h3><p>Resumo fictício de uma notícia com CTA.</p><a class="btn-inline" href="pages/noticias.html">Ler</a></div>
+      </div>
+      <div class="card">
+        <img class="cover" src="assets/img/banner.webp" alt="">
+        <div class="p"><h3>Saúde: indicadores de atendimento</h3><p>Dados simulados para visualização de layout.</p><a class="btn-inline" href="pages/noticias.html">Ler</a></div>
+      </div>
+      <div class="card">
+        <img class="cover" src="assets/img/banner.webp" alt="">
+        <div class="p"><h3>Educação: transporte escolar na pauta</h3><p>Exemplo de card com imagem, título e link.</p><a class="btn-inline" href="pages/noticias.html">Ler</a></div>
+      </div>
     </div>
   </section>
 
-  <!-- Explica -->
-  <section class="section" style="background:var(--azul-claro)">
+  <section class="section">
     <h2>Sentinela Explica</h2>
     <div class="grid grid-3">
-      <div class="card">Explicativo 1</div>
-      <div class="card">Explicativo 2</div>
-      <div class="card">Explicativo 3</div>
+      <div class="card">
+        <img class="cover" src="assets/img/banner.webp" alt="">
+        <div class="p"><h3>O que é Impessoalidade?</h3><p>Texto de exemplo explicando princípios administrativos.</p><a class="btn-inline" href="pages/explica.html">Entenda</a></div>
+      </div>
+      <div class="card">
+        <img class="cover" src="assets/img/banner.webp" alt="">
+        <div class="p"><h3>Como funciona a LDO</h3><p>Explicativo fictício com linguagem clara.</p><a class="btn-inline" href="pages/explica.html">Entenda</a></div>
+      </div>
+      <div class="card">
+        <img class="cover" src="assets/img/banner.webp" alt="">
+        <div class="p"><h3>Direito de Acesso à Informação</h3><p>Passo a passo simulado para pedidos de informação.</p><a class="btn-inline" href="pages/explica.html">Entenda</a></div>
+      </div>
     </div>
   </section>
 
-  <!-- Ajuda -->
   <section class="section">
-    <h2>Ajuda ao Cidadão</h2>
-    <p>Acesse nossa área de suporte jurídico e orientação cidadã.</p>
+    <div class="infobox">
+      <h2>Ajuda ao Cidadão</h2>
+      <p>Modelos, orientações e primeiros passos para encaminhar denúncias e solicitações.</p>
+      <a class="btn" href="pages/ajuda.html">Acessar Ajuda Jurídica</a>
+    </div>
   </section>
 
-  <!-- Setores com Ícones -->
   <section class="section">
     <h2>Áreas de Atuação</h2>
     <div class="grid grid-4">
-      <a href="pages/saude.html" class="card"><img src="assets/icons/saude.webp"><h3>Saúde</h3></a>
-      <a href="pages/educacao.html" class="card"><img src="assets/icons/educacao.webp"><h3>Educação</h3></a>
-      <a href="pages/orcamento.html" class="card"><img src="assets/icons/orcamento.webp"><h3>Orçamento</h3></a>
-      <a href="pages/legislacao.html" class="card"><img src="assets/icons/legislacao.webp"><h3>Legislação</h3></a>
-      <a href="pages/transparencia.html" class="card"><img src="assets/icons/transparencia.webp"><h3>Transparência</h3></a>
-      <a href="pages/camara.html" class="card"><img src="assets/icons/camara.webp"><h3>Câmara</h3></a>
-      <a href="pages/adm-municipal.html" class="card"><img src="assets/icons/adm-municipal.webp"><h3>Adm. Municipal</h3></a>
-      <a href="pages/direitos-humanos.html" class="card"><img src="assets/icons/direitos-humanos.webp"><h3>Direitos Humanos</h3></a>
-      <a href="pages/cultura.html" class="card"><img src="assets/icons/cultura.webp"><h3>Cultura</h3></a>
-      <a href="pages/casa.html" class="card"><img src="assets/icons/casa.webp"><h3>Habitação</h3></a>
+      <a class="card icon-card" href="pages/saude.html"><img src="assets/icons/saude.webp" alt=""><h3>Saúde</h3></a>
+      <a class="card icon-card" href="pages/educacao.html"><img src="assets/icons/educacao.webp" alt=""><h3>Educação</h3></a>
+      <a class="card icon-card" href="pages/orcamento.html"><img src="assets/icons/orcamento.webp" alt=""><h3>Orçamento</h3></a>
+      <a class="card icon-card" href="pages/legislacao.html"><img src="assets/icons/legislacao.webp" alt=""><h3>Legislação</h3></a>
+      <a class="card icon-card" href="pages/transparencia.html"><img src="assets/icons/transparencia.webp" alt=""><h3>Transparência</h3></a>
+      <a class="card icon-card" href="pages/camara.html"><img src="assets/icons/camara.webp" alt=""><h3>Câmara</h3></a>
+      <a class="card icon-card" href="pages/adm-municipal.html"><img src="assets/icons/adm-municipal.webp" alt=""><h3>Adm. Municipal</h3></a>
+      <a class="card icon-card" href="pages/direitos-humanos.html"><img src="assets/icons/direitos-humanos.webp" alt=""><h3>Direitos Humanos</h3></a>
+      <a class="card icon-card" href="pages/cultura.html"><img src="assets/icons/cultura.webp" alt=""><h3>Cultura</h3></a>
+      <a class="card icon-card" href="pages/casa.html"><img src="assets/icons/casa.webp" alt=""><h3>Habitação</h3></a>
     </div>
   </section>
 
-  <footer>
-    <p>© 2025 Sentinela Nativense — Potestas a Populo Emanat</p>
+  <footer class="site-footer">
+    <div class="inner">
+      <p>© 2025 Sentinela Nativense — Potestas a Populo Emanat</p>
+    </div>
   </footer>
 
   <script src="assets/js/main.js"></script>
